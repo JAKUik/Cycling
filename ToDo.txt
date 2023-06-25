@@ -1,0 +1,31 @@
+NEXT STEPS:
+- základní obslužná smyčka jednoho kola !!!
+    vykreslení plánu
+    nadefinování pořadí ve skupině, rozdělení do skupin list[skupina, player]
+    označení hráče na tahu
+
+- blikání hráče, který je na tahu
+
+- pohyb hráče
+- pohyb skupiny, přebírání hodnoty hodu
+
+
+
+
+
+NÁMĚTY:
+-------
+Now:
+
+Next:
+- zlepšování statistik hráče
+- odměny za vítězné trikoty a úmístění
+
+Později:
+- horská prémie
+- sprinterská prémie
+- vyčerpání hráče
+
+
+Payable:
+- obnovení vyčerpání

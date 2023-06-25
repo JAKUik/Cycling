@@ -1,0 +1,24 @@
+Popis programu: Vytvářím počítačovou hru v Pythonu s podporou knihovny Pygame.
+Hra je o cyklistickém závodě několika týmů po několika hráčích v každém týmu. Hráči se pohybují po šestiúhelníkovém
+hracím poli. Hrací pole je uloženo v dvojrozměrném listu (x - označuje řádky, y - sloupce).
+Hráči se mohou pohybovat pouze dopředu (x+1).
+
+Každý lichý řádek pole je posunut doprava a sudý zase zpět doleva.
+Pohyb v poli je tedy:
+- ze sudého řádku na šestiúhelník vpravo: x+1, y  vlevo pak: x+1 y-1
+- z lichého řádku vpravo: x+1 y+1  vlevo: x+1, y
+
+V celkovém hracím poli je vytvořena cesta se zatáčkami a jinými překážkami. Dostupnost těchto políček je uložena
+vrací metoda Field.is_accessible. Tato metoda vrací i případnou obsazenost jiným hráčem, políčko je tím pádem
+nedostupné pro pohyb přes něj.
+
+Dále budeme pokračovat v dotazech souvisejících s touto definicí hry.
+
+DOTAZ:
+1. Vytvoř metodu pro vygenerování všech dostupných cílových polí pro pohyb hráče s následujícími podmínkami.
+- Vstupní parametry metody: pozice hráče (x, y), poček kroků o které se má posunout
+- Hráč se musí pohnout přesně o daný počet polí
+- Hráč nesmí přecházet přes pole, které mu metoda .is_accessible vrací jako nedostupné
+- Každý krok hráče je vpřed
+- Výsledná dostupná pole vrať jako list
+
