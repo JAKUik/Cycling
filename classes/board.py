@@ -38,7 +38,7 @@ class Board:
         i = 0
         while i < self.rows:
             # if i < self.rows - 9:
-            sector_length = random.randint(min_sector, 8)
+            sector_length = random.randint(min_sector, 10)
             for j in range(sector_length):
                 # Generating 1 line. Change border.
                 r, left_border, right_border, direction = \
@@ -50,7 +50,6 @@ class Board:
             direction = random.randint(-1, 1)
             width_way += random.randint(-1, 1)
             width_way = max(min(width_way, max_width), min_width)
-            print(width_way)
 
     def generate_one_line(self, row, left_border, right_border, direction, width_way):
         if left_border < 1:

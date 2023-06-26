@@ -1,5 +1,5 @@
 # Zde je návrh metody pro vygenerování všech dostupných cílových polí pro pohyb hráče:
-def get_accessible_positions(player_pos, steps):
+def get_accessible_positions(field, player_pos, steps):
     x, y = player_pos
     accessible_positions = []
 
@@ -14,7 +14,7 @@ def get_accessible_positions(player_pos, steps):
             next_positions = [(x+1, y+1), (x+1, y)]
 
         for next_x, next_y in next_positions:
-            if Field.is_accessible(next_x, next_y):
+            if field.is_accessible(next_x, next_y):
                 get_accessible_positions_recursive(next_x, next_y, steps-1)
 
     get_accessible_positions_recursive(x, y, steps)

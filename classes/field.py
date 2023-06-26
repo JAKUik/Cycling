@@ -9,10 +9,16 @@ class Field:
         self.typ = "UP"  # UP DOWN PLAIN
         self.wind = "FRONT"  # FRONT BACK SIDE
         self.color = None
+        # For save last possition on output
+        self.x = None
+        self.y = None
+        self.width = None
+        self.heigth = None
+
         self.print_console_value = f"{row:02}{col}"
 
     def is_accessible(self):
-        return self.enable and self.player is None
+        return self.enable and not self.has_player()
 
     def set_player(self, player):
         self.player = player

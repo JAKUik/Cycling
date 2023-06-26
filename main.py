@@ -2,7 +2,7 @@ from classes.JK_library import *
 from classes.board import Board
 from classes.player import Player
 from classes.team import Team
-from classes.gameoutput import GameOutput
+from classes.viewmodule import ViewModule
 from classes.game import Game
 
 import pygame
@@ -11,12 +11,16 @@ pygame.init()
 if __name__ == '__main__':
     pass
 
-screen_widht = 1280
-screen_height = 1024
+display_info = pygame.display.get_desktop_sizes()
+display_resolution_x, display_resolution_y = display_info[0]
+print(display_resolution_x, display_resolution_y)
+
+screen_widht = min(1600, display_resolution_x)
+screen_height = min(1200, display_resolution_y)
 clock_tick = 30
 
 board = Board(400, 25)
-output = GameOutput(screen_widht, screen_height, board)
+output = ViewModule(screen_widht, screen_height, board)
 
 players = list()
 
