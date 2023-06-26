@@ -2,7 +2,8 @@ import pygame
 from .JK_library import *
 from .container import Container
 
-class GameOutput:
+
+class ViewModule:
     def __init__(self, window_width, window_height, game_board):
         pygame.init()
         self.window_width = window_width
@@ -42,16 +43,22 @@ class GameOutput:
         # self.board_contaniner.draw(self.screen)
         self.draw_container(self.board_contaniner, self.screen)
 
-    def draw_field(self, field, x, y, width, height):
+    def draw_field(self, field, x=None, y=None, width=None, height=None):
         """
-        Draw one hexagon field
+        Draw one hexagon field to possition x,y with width and height
+        Save x,y, width and height to Field attributs
         :param field:
-        :param x:
+        :param x: if is None fill it by field.x (last draw possition)
         :param y:
         :param width:
         :param height:
         :return:
         """
+        x = field.x if x is None else x
+        y = field.y if y is None else y
+        width = field.width if width is None else width
+        height = field.heigth if height is None else width
+
         bg = field.bg_color
         if field.player is not None:
             bg = field.player.team.color
@@ -81,14 +88,14 @@ class GameOutput:
             text = self.font.render(f"{field.row},{field.col}", True, BLACK)
             text_rect = text.get_rect(center=(x + width / 2, y + height / 2))
             self.board_contaniner.surface.blit(text, text_rect)
-        elif field.player is not None:
+        elif field.has_player():
             text = self.font.render(f"{field.player.initials}", True, BLACK)
             text_rect = text.get_rect(center=(x + width / 2, y + height / 2))
             self.board_contaniner.surface.blit(text, text_rect)
-
-
+            
         # Render Player
-
+        #
+        #
 
     def scroll_game_board(self, dy):
         self.board_contaniner.scroll(0, dy)
