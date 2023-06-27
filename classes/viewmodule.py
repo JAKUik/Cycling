@@ -10,7 +10,7 @@ class ViewModule:
         self.window_height = window_height
         self.game_board = game_board
         self.screen = pygame.display.set_mode((self.window_width, self.window_height))
-        pygame.display.set_caption("Cycling Game")
+        pygame.display.set_caption("Cycling GameLoop")
         # Set white background
         self.background_color = LIGHT_GRAY
         # self.screen.fill(self.background_color)

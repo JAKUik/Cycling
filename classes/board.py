@@ -4,7 +4,7 @@ from .JK_library import *
 
 class Board:
     """
-    Game board
+    GameLoop board
     :param rows:
     :param columns: Will be increase to even
     """
