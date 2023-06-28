@@ -2,6 +2,7 @@ import random
 from .field import Field
 from .JK_library import *
 
+
 class Board:
     """
     GameLoop board
@@ -12,7 +13,7 @@ class Board:
         self.board = []
         self.rows = rows
         self.columns = columns + columns % 2  # Increase to even
-        self.generate()
+
         # Create a empty game board
         # for i in range(self.rows):
         #     r = []
@@ -91,7 +92,6 @@ class Board:
         elif direction == -1:
             return col + (row % 2) - 1
         return col
-
 
     def field(self, row, col):
         return self.board[row][col]

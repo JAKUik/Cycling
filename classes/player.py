@@ -12,10 +12,10 @@ class Player:
         pass
 
     def change_possition(self, new_row, new_col):
-        board.board[self.row][self.col].remove_player()
+        self.board[self.row][self.col].remove_player()
         self.row = new_row
         self.col = new_col
-        board.board[self.row][self.col].set_player(self)
+        self.board[self.row][self.col].set_player(self)
 
     def step(self, direction):
         # Implement your movement logic here
