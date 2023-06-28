@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d8c7873-3122-49a7-9fcd-699d9efedb09" name="Changes" comment="I go back.">
-      <change afterPath="$PROJECT_DIR$/classes/mainmenu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/board.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/gameloop.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/gameloop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/mainmenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/mainmenu.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

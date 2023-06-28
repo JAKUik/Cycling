@@ -12,7 +12,7 @@ class ViewModule:
         self.screen = pygame.display.set_mode((self.window_width, self.window_height))
         pygame.display.set_caption("Cycling GameLoop")
         # Set white background
-        self.background_color = LIGHT_GRAY
+        self.background_color = Colors.LIGHT_GRAY
         # self.screen.fill(self.background_color)
 
         self.clock = pygame.time.Clock()
@@ -24,7 +24,7 @@ class ViewModule:
 
         self.board_contaniner = Container(10, 0, self.window_width // 4 * 3, self.hexagon_height
                                           * self.game_board.rows * 0.75 + 10, self.screen)
-        self.board_contaniner.surface.fill(DARK_GREEN)
+        self.board_contaniner.surface.fill(Colors.DARK_GREEN)
 
     def draw_game_board(self):
         # Iterate over the game board and draw the fields
@@ -85,11 +85,11 @@ class ViewModule:
         # Render the field's coordinates as text
         if not field.enable:
             # Blit the text onto the surface
-            text = self.font.render(f"{field.row},{field.col}", True, BLACK)
+            text = self.font.render(f"{field.row},{field.col}", True, Colors.BLACK)
             text_rect = text.get_rect(center=(x + width / 2, y + height / 2))
             self.board_contaniner.surface.blit(text, text_rect)
         elif field.has_player():
-            text = self.font.render(f"{field.player.initials}", True, BLACK)
+            text = self.font.render(f"{field.player.initials}", True, Colors.BLACK)
             text_rect = text.get_rect(center=(x + width / 2, y + height / 2))
             self.board_contaniner.surface.blit(text, text_rect)
             

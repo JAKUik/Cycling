@@ -1,5 +1,5 @@
 import pygame
-from classes.JK_library import *
+from classes.JK_library import Colors
 from classes.board import Board
 from classes.gameloop import GameLoop
 from classes.viewmodule import ViewModule
@@ -39,7 +39,10 @@ class MainMenu:
         pass
 
     def load_teams(self):
-        self.teams = {"AJK": Team("AJK", "aJKa software", PINK)}
+        self.teams = {"AJK": Team("AJK", "aJKa software", Colors.PINK)}
+        self.teams = {"USA": Team("AJK", "aJKa software", Colors.RED)}
+        self.teams = {"SPA": Team("AJK", "aJKa software", Colors.YELLOW)}
+        self.teams = {"GBP": Team("AJK", "aJKa software", Colors.BLUE)}
 
     def load_players(self):
         self.players.append(Player("Béďa Ocásek", "BO", 0, 12, self.teams["AJK"], self.board))

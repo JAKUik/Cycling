@@ -78,11 +78,11 @@ class Board:
         # Create list with 1 line
         for c in range(self.columns):
             if left_border == c or right_border == c:
-                r.append(Field(row, c, DARK_GRAY, False))
+                r.append(Field(row, c, Colors.DARK_GRAY, False))
             elif left_border < c < right_border:
-                r.append(Field(row, c, LIGHT_GRAY, True))
+                r.append(Field(row, c, Colors.LIGHT_GRAY, True))
             else:
-                r.append(Field(row, c, DARK_GREEN, False))
+                r.append(Field(row, c, Colors.DARK_GREEN, False))
         return r, left_border, right_border, direction
 
     def next_column(self, row, col, direction):
