@@ -14,7 +14,23 @@ nedostupné pro pohyb přes něj.
 
 Dále budeme pokračovat v dotazech souvisejících s touto definicí hry.
 
-DOTAZ:
+DOTAZ 03:
+Vytvoř funkci pro pořadí hráčů dle následujících pravidel. Toto pořadí ulož do player.order, začni od 1.
+První hráč má nejvyšší player.row, pro více hráčů se stejnou hodnotou row platí, že přednost mají hráči s nejnižší
+hodnotou col a zároveň dvěma dostupnými poli před sebou (dostupnost vrací atribut field.enable, potom následují
+hráči na řádku s jedním dostupný polem před sebou.
+
+DOTAZ 02:
+Vytvoř algoritmus, který zjisti všechny sousedící hráče (dotýkají se alespoň jednou stranou hexagonu) dle pravidel mezi
+sudými a lichými řádky výše.
+Hráči jsou umístěni v poli players, které obsahuje objekty player.
+Objekt player má následující potřebné atributy:
+row - řádek v hracím poli
+col - sloupec v hracím poli
+group - zde se zapíše číslo skupiny (1)
+
+
+DOTAZ 01:
 1. Vytvoř metodu pro vygenerování všech dostupných cílových polí pro pohyb hráče s následujícími podmínkami.
 - Vstupní parametry metody: pozice hráče (x, y), poček kroků o které se má posunout
 - Hráč se musí pohnout přesně o daný počet polí

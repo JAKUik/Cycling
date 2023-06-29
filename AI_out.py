@@ -1,3 +1,24 @@
+# Tento algoritmus prochází seznam hráčů a pro každého hráče zjistí jeho sousední pozice na základě pravidel pro sudé
+# a liché řádky. Poté prochází seznam hráčů znovu a hledá hráče na těchto sousedních pozicích. Pokud jsou nalezeni
+# sousední hráči, jsou přidáni do skupiny spolu s aktuálním hráčem. Nakonec jsou všechny skupiny vráceny jako výsledek.
+def find_adjacent_players(players):
+    groups = []
+    for player in players:
+        adjacent_players = []
+        if player.row % 2 == 0:
+            adjacent_positions = [(player.row + 1, player.col), (player.row + 1, player.col - 1)]
+        else:
+            adjacent_positions = [(player.row + 1, player.col + 1), (player.row + 1, player.col)]
+        for row, col in adjacent_positions:
+            for p in players:
+                if p.row == row and p.col == col:
+                    adjacent_players.append(p)
+        group = [player] + adjacent_players
+        groups.append(group)
+    return groups
+
+
+
 # Zde je návrh metody pro vygenerování všech dostupných cílových polí pro pohyb hráče:
 def get_accessible_positions(field, player_pos, steps):
     x, y = player_pos
@@ -57,26 +78,6 @@ assert my_object == loaded_object
 # by joining the folder path with the file name. The rest of the code remains unchanged and works in the same way as before.
 
 
-Zde
-je
-příklad
-funkce
-v
-jazyce
-Python, která
-projde
-zadanou
-složku
-na
-disku
-a
-vytvoří
-další
-verzi
-souboru
-podle
-zadaného
-klíče:
 
 import os
 

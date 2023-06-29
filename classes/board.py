@@ -107,4 +107,40 @@ class Board:
             row, col = rc
             self.board[row][col].bg_color = self.board[row][col].bg_color_ini
 
+    def count_front_enable(self, row, col):
+        """
+        Counts how much available fields is before the position
+        :param row:
+        :param col:
+        :return: Counts
+        """
+        accessible_count = 0
+        if row % 2 == 0:
+            adjacent_positions = [(row + 1, col), (row + 1, col - 1)]
+        else:
+            adjacent_positions = [(row + 1, col + 1), (row + 1, col)]
+        for r, c in adjacent_positions:
+            if self.board[r][c].enable:
+                accessible_count += 1
+        return accessible_count
+
+    def surrounding_positions(self, row, col):
+        """
+        Returns the coordinates of all surrounding positions
+        :param row:
+        :param col:
+        :return: List of all position
+        """
+        accessible_positions = []
+        if row % 2 == 0:
+            adjacent_positions = [(row + 1, col), (row + 1, col - 1), (row, col - 1), (row, col + 1),
+                                  (row - 1, col), (row - 1, col - 1)]
+        else:
+            adjacent_positions = [(row + 1, col + 1), (row + 1, col), (row, col - 1), (row, col + 1),
+                                  (row - 1, col + 1), (row - 1, col)]
+        for r, c in adjacent_positions:
+            if 0 <= r < self.rows and 0 <= c < self.columns:
+                if self.board[r][c].enable:
+                    accessible_positions.append((r, c))
+        return accessible_positions
 

@@ -1,13 +1,18 @@
 class Player:
-    def __init__(self, name, initials, row, col, team, board):
+    def __init__(self, name, monogram, team):
         self.name = name
-        self.initials = initials
-        self.row = row
-        self.col = col
+        self.monogram = monogram
+        self.row = None  # Row on the board
+        self.col = None  # Column on the board
         self.team = team
-        self.board = board
-        self.board.board[row][col].set_player(self)
+        self.group = None  # Group number for each round
+        self.order = None  # Order for each round
+        self.front_enable = None  # The number of available fields in front
 
+        # self.board = board
+        # self.board.board[row][col].set_player(self)
+
+"""
     def move(self, steps):
         pass
 
@@ -33,3 +38,4 @@ class Player:
             for field in row:
                 # Access field properties
                 print(field.row, field.col, field.color, field.typ, field.wind)
+"""
