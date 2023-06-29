@@ -22,8 +22,12 @@ class Field:
 
     def set_player(self, player):
         self.player = player
+        self.player.row = self.row
+        self.player.col = self.col
 
     def remove_player(self):
+        self.player.row = 0
+        self.player.col = 0
         self.player = None
 
     def has_player(self):

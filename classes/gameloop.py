@@ -1,3 +1,5 @@
+import random
+
 import pygame
 CLOCK_TICK = 30
 
@@ -8,6 +10,7 @@ class GameLoop:
         self.players = players
         self.teams = teams
         self.output = output
+        self.starting_lineup()
 
     def main_loop(self):
         running = True
@@ -57,4 +60,20 @@ class GameLoop:
             pygame.display.update()
 
             self.output.clock.tick(CLOCK_TICK)
+
+    # The players' line-up at the start
+    def starting_lineup(self):
+        random.shuffle(self.players)
+        p = 0
+        for i in range(self.board.rows):
+            for j in range(self.board.columns):
+                if self.board.field(i, j).enable:
+                    self.board.field(i, j).set_player = self.players[p]
+                    # print(f"{i}, {j}, {p}, ")
+                    # print(f"{self.board[i][j].player.row} - {self.board[i][j].player.col}")
+
+                    p += 1
+                    if p >= len(self.players):
+                        return  # Pěkně divné řešení !!!
+
 

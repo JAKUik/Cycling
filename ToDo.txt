@@ -1,6 +1,6 @@
 NEXT STEPS:
 - základní obslužná smyčka jednoho kola !!!
-    vykreslení plánu
+OK    vykreslení plánu
     nadefinování pořadí ve skupině, rozdělení do skupin list[skupina, player]
     označení hráče na tahu
 
@@ -16,6 +16,7 @@ NEXT STEPS:
 NÁMĚTY:
 -------
 Now:
+- Ukládání boardu do souboru
 
 Next:
 - zlepšování statistik hráče
