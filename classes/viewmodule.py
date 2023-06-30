@@ -94,6 +94,7 @@ class ViewModule:
             # text = self.font.render(f"{field.player.monogram}", True, Colors.BLACK)
             text_rect = text.get_rect(center=(x + width / 2, y + height / 2))
             self.board_contaniner.surface.blit(text, text_rect)
+        # elif  TODO Vykreslení pozice na kterou může hráč vstoupit
             
         # Render Player
         #

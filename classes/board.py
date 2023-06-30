@@ -144,3 +144,28 @@ class Board:
                     accessible_positions.append((r, c))
         return accessible_positions
 
+    def get_accessible_target_positions(self, row, col, steps):
+        def get_adjacent_positions(row, col):
+            if row % 2 == 0:
+                return [(row + 1, col), (row + 1, col - 1)]
+            else:
+                return [(row + 1, col + 1), (row + 1, col)]
+
+        def get_accessible_positions(row, col):
+            accessible_positions = []
+            adjacent_positions = get_adjacent_positions(row, col)
+            for r, c in adjacent_positions:
+                if self.field(r, c).is_accessible():
+                    accessible_positions.append((r, c))
+            return accessible_positions
+
+        def dfs(row, col, steps):
+            if steps == 0:
+                return [(row, col)]
+            accessible_target_positions = []
+            accessible_positions = get_accessible_positions(row, col)
+            for r, c in accessible_positions:
+                accessible_target_positions.extend(dfs(r, c, steps - 1))
+            return accessible_target_positions
+
+        return list(set(dfs(row, col, steps)))

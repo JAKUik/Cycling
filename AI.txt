@@ -14,6 +14,61 @@ nedostupné pro pohyb přes něj.
 
 Dále budeme pokračovat v dotazech souvisejících s touto definicí hry.
 
+***********************
+DOTAZ 04: Návrhový vzor
+***********************
+Vytvoř vhodný návrhový vzor pro obsluhu jednoho hráče, který má v každém tahu následující možnosti:
+První hráč ve skupině:
+- musí vybrat kostku s kterou hodí (normální, brzdící)
+- při hodu 2 na normální kostce pokud je jediný nebo poslední ve skupině, popojde jen o dvě v jiném případě se pohybuje
+ totožně jako další hráči ve skupině
+
+Další hráč ve skupině:
+- mohou vybrat hod kostkou (normální, brzdící)
+- padne-li dvojka na normální kostce má dvě možnosti (pokud je hráč sám a nebo poslední ve skupině popojde pouze o 2 a v kole již dále nehraje)
+    1. popojde o dvě pole a hodí sprinterskou kostkou a popojde o počet jejích bodů (odpoutá se od skupiny)
+    2. hodí rovnou sprinterskou kostkou a popojde o součet obou kostek (ostatní hráči ve skupině mohou přebrat tento součet pro svůj pohyb)
+- v případě, že předchozí nebo předpředchozí hráč použil brzdící kostku, musí převzít její hodnotu nebo hodit brzdící kostkou
+- místo hodu mohou převzít hodnotu předchozího hráče
+
+Hráč který háže normální kostkou postupuje pomaleji kvůli odporu vzduchu dle následujícího pravidla kdy padla:
+2 - viz pravidla výše
+3 - o 3
+4 - o 3
+5 - o 4
+6 - o 5
+
+Pro obsluhu jednoho hráče a jeho možností v každém tahu bychom mohli použít návrhový vzor Stav (State). Tento
+návrhový vzor umožňuje objektu měnit své chování v závislosti na jeho vnitřním stavu.
+
+V tomto případě bychom mohli vytvořit třídu `Player`, která by měla atribut `state` reprezentující aktuální stav hráče.
+Tento stav by mohl být například `FirstInGroup`, `LastInGroup`, `InGroup`, `UsedBrakingDice` atd. Třída `Player` by
+také měla metody pro provedení různých akcí, jako je například `choose_dice`, `roll_dice`, `move` atd. Tyto metody by
+delegovaly své chování na aktuální stav hráče.
+
+Každý stav by byl reprezentován samostatnou třídou, která by implementovala metody pro provedení různých akcí.
+Například třída `FirstInGroup` by implementovala metodu `choose_dice`, která by umožnila hráči vybrat pouze normální
+nebo brzdící kostku. Třída `LastInGroup` by implementovala metodu `roll_dice`, která by zahrnovala speciální pravidla
+pro hod dvojkou na normální kostce.
+
+Při změně stavu hráče, například když se stane posledním ve skupině, by se změnil i jeho atribut `state` na odpovídající
+stav, například na instanci třídy `LastInGroup`. Tímto způsobem by se změnilo chování hráče a jeho možnosti v dalším tahu.
+
+Ano, máte pravdu. V návrhovém vzoru Stav by se do atributu state vždy vytvořila instance odpovídajícího stavu.
+Například pokud by se hráč stal prvním ve skupině, jeho atribut state by se změnil na instanci třídy FirstInGroup.
+
+Pokud jde o vícestavové případy, existuje několik možností, jak je vyřešit. Jednou z možností je vytvoření nových
+tříd stavů, které kombinují chování více stavů. Například pokud by hráč mohl být současně prvním ve skupině a mít
+použitou brzdící kostku, mohli bychom vytvořit novou třídu stavu FirstInGroupAndUsedBrakingDice, která by kombinovala
+chování tříd FirstInGroup a UsedBrakingDice.
+
+Další možností je použití více atributů stavu místo jednoho. Například místo jednoho atributu state bychom mohli mít
+atributy group_position a used_braking_dice. Atribut group_position by mohl nabývat hodnot jako first, last,
+in_group atd. a atribut used_braking_dice by mohl být buď True nebo False. Metody třídy Player by pak mohly zohledňovat
+kombinaci těchto atributů při rozhodování o svém chování.
+
+Která z těchto možností je nejlepší závisí na konkrétních požadavcích a potřebách vaší aplikace.
+
 DOTAZ 03:
 Vytvoř funkci pro pořadí hráčů dle následujících pravidel. Toto pořadí ulož do player.order, začni od 1.
 První hráč má nejvyšší player.row, pro více hráčů se stejnou hodnotou row platí, že přednost mají hráči s nejnižší
@@ -31,7 +86,14 @@ group - zde se zapíše číslo skupiny (1)
 
 
 DOTAZ 01:
-1. Vytvoř metodu pro vygenerování všech dostupných cílových polí pro pohyb hráče s následujícími podmínkami.
+Vytvoř metodu pro vygenerování všech dostupných cílových polí pro pohyb hráče s následujícími podmínkami.
+- Vstupní parametry metody: pozice hráče row, col, poček kroků o které se má posunout
+- Hráč se musí pohnout přesně o daný počet polí
+- Hráč nesmí přecházet přes pole, které mu metoda self.board.field(row, col).is_accessible vrací jako nedostupné
+- Každý krok hráče je vpřed
+- Výsledná dostupná pole vrať jako list
+
+Vytvoř metodu pro vygenerování všech dostupných cílových polí pro pohyb hráče s následujícími podmínkami.
 - Vstupní parametry metody: pozice hráče (x, y), poček kroků o které se má posunout
 - Hráč se musí pohnout přesně o daný počet polí
 - Hráč nesmí přecházet přes pole, které mu metoda .is_accessible vrací jako nedostupné

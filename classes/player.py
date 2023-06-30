@@ -8,9 +8,26 @@ class Player:
         self.group = None  # Group number for each round
         self.order = None  # Order for each round
         self.front_enable = None  # The number of available fields in front
+        self.take_roll = None
+        self.main_cube = None
+        self.sprint_cube = None
+        self.break_cube = None
+        self.fields_for_move = []
 
         # self.board = board
         # self.board.board[row][col].set_player(self)
+
+    def new_round_reset(self):
+        self.group = None
+        self.order = None
+        self.front_enable = None
+        self.take_roll = None
+        self.main_cube = True
+        self.sprint_cube = False
+        self.break_cube = True
+        self.fields_for_move = []
+
+
 
 """
     def move(self, steps):
