@@ -16,6 +16,7 @@ class ViewModule:
 
         # TODO - Optimalizate the hexagon width and height
         self.font = pygame.font.Font(None, 20)
+        self.font40 = pygame.font.Font(None, 40)
         # Calculate the dimensions of the hexagon
         self.hexagon_width = self.window_width // 35
         self.hexagon_height = int(self.hexagon_width * 1)
@@ -52,28 +53,35 @@ class ViewModule:
         :param height:
         :return:
         """
-        x = field.x if x is None else x
-        y = field.y if y is None else y
-        width = field.width if width is None else width
-        height = field.heigth if height is None else width
+        if x is not None:
+            field.x = x
+        if y is not None:
+            field.y = y
+        if width is not None:
+            field.width = width
+        if height is not None:
+            field.height = height
 
         bg = field.bg_color
         if field.player is not None:
             bg = field.player.team.color
-        self.draw_one_hexagon(x, y, width, height, bg, Colors.BLACK)
-
+        self.draw_one_hexagon(field.x, field.y, field.width, field.height, bg, Colors.BLACK)
 
         # Render the field's coordinates as text
         if not field.enable:
             # Blit the text onto the surface
             text = self.font.render(f"{field.row},{field.col}", True, Colors.BLACK)
-            text_rect = text.get_rect(center=(x + width / 2, y + height / 2))
+            text_rect = text.get_rect(center=(field.x + field.width / 2, field.y + field.height / 2))
+            self.board_contaniner.surface.blit(text, text_rect)
+        elif field.accessible_for_move is not None:
+            text = self.font40.render(f"{field.accessible_for_move}", True, Colors.PINK)
+            text_rect = text.get_rect(center=(field.x + field.width / 2, field.y + field.height / 2))
             self.board_contaniner.surface.blit(text, text_rect)
         elif field.has_player():
             # TEMP !!!
             text = self.font.render(f"{field.player.group}/{field.player.order}", True, Colors.BLACK)
             # text = self.font.render(f"{field.player.monogram}", True, Colors.BLACK)
-            text_rect = text.get_rect(center=(x + width / 2, y + height / 2))
+            text_rect = text.get_rect(center=(field.x + field.width / 2, field.y + field.height / 2))
             self.board_contaniner.surface.blit(text, text_rect)
         # elif  TODO Vykreslení pozice na kterou může hráč vstoupit
             
@@ -100,9 +108,6 @@ class ViewModule:
             (x + width // 2, y + height),
             (x, y + 3 * height // 4)
         ], 1)  # The third argument (1) specifies the line thickness
-
-
-
 
     def scroll_game_board(self, dy):
         self.board_contaniner.scroll(0, dy)

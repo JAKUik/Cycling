@@ -9,13 +9,20 @@ class Field:
         self.typ = "UP"  # UP DOWN PLAIN
         self.wind = "FRONT"  # FRONT BACK SIDE
         self.color = None
+        self.accessible_for_move = None
         # For save last possition on output
         self.x = None
         self.y = None
         self.width = None
-        self.heigth = None
+        self.height = None
 
         self.print_console_value = f"{row:02}{col}"
+
+    def set_accessible_for_player_move(self, number):
+        """
+        :param number: The number of the key to move. None for deletion.
+        """
+        self.accessible_for_move = number
 
     def is_accessible(self):
         return self.enable and not self.has_player()

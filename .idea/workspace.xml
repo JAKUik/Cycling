@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d8c7873-3122-49a7-9fcd-699d9efedb09" name="Changes" comment="I go back.">
+      <change afterPath="$PROJECT_DIR$/classes/players.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/board.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/cube.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/dice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/field.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/field.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/gameloop.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/gameloop.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/mainmenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/mainmenu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/classes/viewmodule.py" beforeDir="false" afterPath="$PROJECT_DIR$/view_modules/viewmodule.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view_modules/viewmodule.py" beforeDir="false" afterPath="$PROJECT_DIR$/view_modules/viewmodule.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -390,6 +394,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/classes/players.py</url>
+          <line>56</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">

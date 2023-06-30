@@ -145,6 +145,12 @@ class Board:
         return accessible_positions
 
     def get_accessible_target_positions(self, row, col, steps):
+        """
+        :param row: Player row
+        :param col: Player column
+        :param steps: The roll
+        :return: List (tuples) of all accessible positions for player by the roll
+        """
         def get_adjacent_positions(row, col):
             if row % 2 == 0:
                 return [(row + 1, col), (row + 1, col - 1)]
