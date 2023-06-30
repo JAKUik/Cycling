@@ -9,7 +9,7 @@ KEY_SPRINT_DICE = 'S'
 
 class Players:
     def __init__(self, players, teams, board, output):
-        self.players = players
+        self.players = players  # CHECK - Změnit na self.players_list
         self.teams = teams
         self.board = board
         self.output = output
@@ -21,17 +21,49 @@ class Players:
         self.sprint_dice = Dice('3' * 20 + '4' * 40 + '5' * 40 + '6' * 20)
         self.break_dice = Dice('1' * 40 + '2' * 40 + '3' * 40)
         # Temp variables
+        self.accessible_fields = None
 
     # TODO - Toto je asi špatně v logice
-    def player_move(self):
+
+    def check_new_player(self):
         if self._player is None:
             # New player for move
             self._player = self.players[self.players_pointer]
             if self.last_group != self._player.group:
                 # TODO - Select Dice (main or break)
-                self._player.roll = self.main_dice.dice_roll()
-                atp = self.board.get_accessible_target_positions(self._player.row, self._player.col, self._player.roll)
-                print(self._player.roll, atp)
+                # self._player.roll = self.main_dice.dice_roll()
+                # atp = self.board.get_accessible_target_positions(self._player.row, self._player.col, self._player.roll)
+                # print(self._player.roll, atp)
+                pass
+
+    def player_move(self, event_key):
+        if self.accessible_fields is None:
+            return False  # Player isn't ready for move
+
+        if event_key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6,
+                         pygame.K_7, pygame.K_8, pygame.K_9]:
+            index = event_key - pygame.K_1
+        elif event_key in [pygame.K_KP_1, pygame.K_KP_2, pygame.K_KP_3, pygame.K_KP_4, pygame.K_KP_5, pygame.K_KP_6,
+                           pygame.K_KP_7, pygame.K_KP_8, pygame.K_KP_9]:
+            index = event_key - pygame.K_KP_1
+        else:
+            return False
+
+        if index < len(self.accessible_fields):
+            self.board.field(self._player.row, self._player.col).remove_player()
+            self.board.field(self.accessible_fields[index][0], self.accessible_fields[index][1])\
+                .set_player(self._player)
+            self.clear_accessible_fields_from_board()
+            if self._player.roll == 2:
+                # TODO - Sprintuje se, sám nebo všichni
+                # return True  #
+                pass
+            self.players_pointer += 1
+            if self.players_pointer < len(self.players):
+                self._player = self.players[self.players_pointer]
+            else:
+                self.players_pointer = None
+            return True
 
     def dice_roll(self, event_key):
         """
@@ -42,12 +74,14 @@ class Players:
             self._player.main_dice = False
             self._player.break_dice = False
             self._player.take_roll = None
-            accessible_fields = self.board.get_accessible_target_positions(
-                self._player.row, self._player.col, self._player.roll if self._player.roll <4 else self._player.roll - 1)
-            x = 1
-            for r, c in accessible_fields:
-                self.board.field(r, c).set_accessible_for_player_move(x)
-                x += 1
+            m = self._player.roll if self._player.roll <4 else self._player.roll - 1
+            self.accessible_fields = self.board.get_accessible_target_positions(self._player.row, self._player.col, m)
+            if len(self.accessible_fields) == 0:  # One more time, but slower
+                self.accessible_fields = self.board.get_accessible_target_positions\
+                    (self._player.row, self._player.col, m - 1)
+                if len(self.accessible_fields) == 0:  # The cyclist fell
+                    pass # TODO *** next cyclist ***
+            self.set_accessible_fields_to_board()
             # Fills the roll for the rest of the group
             g = self._player.group
             for i in range(self.players_pointer, len(self.players)):
@@ -55,15 +89,27 @@ class Players:
                     self.players[i].take_roll = self._player.roll
                 else:
                     break
-            self.output.draw_game_board()
+            # self.output.draw_game_board()
 
         # ... dice_roll method continue
         if event_key == KEY_MAIN_DICE and self._player.main_dice:
             self._player.roll = self.main_dice.dice_roll()
             after_dice_roll()
+            return True
         elif event_key == KEY_BREAK_DICE and self._player.break_dice:
             self._player.roll = self.break_dice.dice_roll()
             after_dice_roll()
+            return True
+
+    def set_accessible_fields_to_board(self):
+        x = 1
+        for r, c in self.accessible_fields:
+            self.board.field(r, c).set_accessible_for_player_move(x)
+            x += 1
+
+    def clear_accessible_fields_from_board(self):
+        for r, c in self.accessible_fields:
+            self.board.field(r, c).set_accessible_for_player_move(None)
 
     def new_round_reset_all_players(self):
         for player in self.players:
@@ -73,6 +119,7 @@ class Players:
         # Sorted all players by GROUP, ROW, COLUMN (front free fields = 2 or 1)
         self.players = sorted(self.players, key=lambda x: (x.group, -x.row, -x.front_enable, x.col))
         self.players_pointer = 0
+        self._player = self.players[self.players_pointer]
 
     def assign_players_order(self):
         """

@@ -4,7 +4,7 @@ import os
 from classes.JK_library import Colors
 from classes.board import Board
 from classes.gameloop import GameLoop
-from view_modules.viewmodule import ViewModule
+from view_modules.viewboard import ViewBoard
 from classes.player import Player
 from classes.team import Team
 
@@ -28,7 +28,7 @@ class MainMenu:
         self.load_board()
         self.load_teams()
         self.load_players()
-        self.output = ViewModule(screen_widht, screen_height, self.board)
+        self.output = ViewBoard(screen_widht, screen_height, self.board)
         self.game = GameLoop(self.output, self.board, self.players, self.teams)
 
         self.game.main_loop()

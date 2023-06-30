@@ -15,7 +15,7 @@ class GameLoop:
         self.board = board
         # self.players = players
         self.players = Players(players, teams, board, output)
-        self.players_pointer = None
+        # self.players_pointer = None
         self.teams = teams
         self.output = output
         self.refresh_board = True
@@ -34,9 +34,14 @@ class GameLoop:
         clock = pygame.time.Clock()
         running = True
         self.refresh_board = True
-        self.new_round()
 
         while running:
+            if self.players.players_pointer is None:
+                self.new_round()
+
+            # # CHECK Tady nebo jinde ?
+            # self.players.check_new_player()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -48,15 +53,12 @@ class GameLoop:
                         self.output.scroll_game_board(50)
                         self.refresh_board = True
                 if event.type == pygame.KEYDOWN:
-                    # Testing all possible actions
-                    self.players.dice_roll(event.key)
+                    # Testing all possible actions with dice
+                    self.refresh_board = self.players.dice_roll(event.key) or self.refresh_board
+                    self.refresh_board = self.players.player_move(event.key) or self.refresh_board
 
-
-                    if event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6,
-                                     pygame.K_7, pygame.K_8, pygame.K_9]:
-                        index = event.key - pygame.K_1
-                        # if index < len():
-                        #     pass
+                    # if index < len():
+                    #     pass
                     # print(event.type)
                     # if event.key == pygame.K_PAGEUP:
                     #     self.output.scroll_game_board(-400)
@@ -81,9 +83,6 @@ class GameLoop:
                 self.refresh_board = True
 
 
-
-            # TODO Opravdu to tu bude ??? Player move
-            self.players.player_move()
 
             # Draw the screen after the self.refresh_board
             if self.refresh_board:

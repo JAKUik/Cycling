@@ -12,6 +12,6 @@ if __name__ == '__main__':
     pass
 
 # board = Board(400, 25)
-# output = ViewModule(screen_widht, screen_height, board)
+# output = ViewBoard(screen_widht, screen_height, board)
 
 pygame.quit()

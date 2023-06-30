@@ -3,7 +3,7 @@ from classes.JK_library import *
 from classes.container import Container
 
 
-class ViewModule:
+class ViewBoard:
     def __init__(self, window_width, window_height, game_board):
         self.window_width = window_width
         self.window_height = window_height
@@ -25,6 +25,10 @@ class ViewModule:
                                           * self.game_board.rows * 0.75 + 10, self.screen)
         self.board_contaniner.surface.fill(Colors.DARK_GREEN)
 
+        self.info_panel = Container(self.board_contaniner.width, 0, self.window_width - self.board_contaniner.width,
+                                    self.window_height, self.screen)
+        self.info_panel.surface.fill(Colors.YELLOW)
+
     def draw_game_board(self):
         # Iterate over the game board and draw the fields
         self.screen.fill(self.background_color)
@@ -40,7 +44,8 @@ class ViewModule:
         pygame.display.flip()
         self.calculate_x_for_row(10)
         # self.board_contaniner.draw(self.screen)
-        self.draw_container(self.board_contaniner, self.screen)
+        self.draw_container(self.board_contaniner)
+        self.draw_container(self.info_panel)
 
     def draw_field(self, field, x=None, y=None, width=None, height=None):
         """
@@ -122,6 +127,5 @@ class ViewModule:
                                            * self.hexagon_height * 0.75)
         # self.board_contaniner.set_position(None, -self.hexagon_height * self.game_board.rows)
 
-    @staticmethod
-    def draw_container(container, screen):
-        screen.blit(container.surface, (container.x - container.scroll_x, container.y - container.scroll_y))
+    def draw_container(self, container):
+        self.screen.blit(container.surface, (container.x - container.scroll_x, container.y - container.scroll_y))
