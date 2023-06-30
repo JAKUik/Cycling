@@ -1,25 +1,23 @@
 import pygame
-from .JK_library import *
-from .container import Container
+from classes.JK_library import *
+from classes.container import Container
 
 
 class ViewModule:
     def __init__(self, window_width, window_height, game_board):
-        pygame.init()
         self.window_width = window_width
         self.window_height = window_height
         self.game_board = game_board
         self.screen = pygame.display.set_mode((self.window_width, self.window_height))
-        pygame.display.set_caption("Cycling GameLoop")
+        pygame.display.set_caption("Cycling")
         # Set white background
         self.background_color = Colors.LIGHT_GRAY
         # self.screen.fill(self.background_color)
 
-        self.clock = pygame.time.Clock()
+        # TODO - Optimalizate the hexagon width and height
         self.font = pygame.font.Font(None, 20)
         # Calculate the dimensions of the hexagon
         self.hexagon_width = self.window_width // 35
-        # hexagon_height = int(hexagon_width * 0.866)
         self.hexagon_height = int(self.hexagon_width * 1)
 
         self.board_contaniner = Container(10, 0, self.window_width // 4 * 3, self.hexagon_height
@@ -62,25 +60,8 @@ class ViewModule:
         bg = field.bg_color
         if field.player is not None:
             bg = field.player.team.color
+        self.draw_one_hexagon(x, y, width, height, bg, Colors.BLACK)
 
-        pygame.draw.polygon(self.board_contaniner.surface, bg, [
-            (x, y + height // 4),
-            (x + width // 2, y),
-            (x + width, y + height // 4),
-            (x + width, y + 3 * height // 4),
-            (x + width // 2, y + height),
-            (x, y + 3 * height // 4)
-        ])
-
-        # Draw the black outline of the hexagon
-        pygame.draw.polygon(self.board_contaniner.surface, (0, 0, 0), [
-            (x, y + height // 4),
-            (x + width // 2, y),
-            (x + width, y + height // 4),
-            (x + width, y + 3 * height // 4),
-            (x + width // 2, y + height),
-            (x, y + 3 * height // 4)
-        ], 1)  # The third argument (1) specifies the line thickness
 
         # Render the field's coordinates as text
         if not field.enable:
@@ -99,6 +80,29 @@ class ViewModule:
         # Render Player
         #
         #
+
+    def draw_one_hexagon(self, x, y, width, height, fill_color, border_color):
+        pygame.draw.polygon(self.board_contaniner.surface, fill_color, [
+            (x, y + height // 4),
+            (x + width // 2, y),
+            (x + width, y + height // 4),
+            (x + width, y + 3 * height // 4),
+            (x + width // 2, y + height),
+            (x, y + 3 * height // 4)
+        ])
+
+        # Draw the black outline of the hexagon
+        pygame.draw.polygon(self.board_contaniner.surface, border_color, [
+            (x, y + height // 4),
+            (x + width // 2, y),
+            (x + width, y + height // 4),
+            (x + width, y + 3 * height // 4),
+            (x + width // 2, y + height),
+            (x, y + 3 * height // 4)
+        ], 1)  # The third argument (1) specifies the line thickness
+
+
+
 
     def scroll_game_board(self, dy):
         self.board_contaniner.scroll(0, dy)

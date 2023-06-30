@@ -4,7 +4,7 @@ import os
 from classes.JK_library import Colors
 from classes.board import Board
 from classes.gameloop import GameLoop
-from classes.viewmodule import ViewModule
+from view_modules.viewmodule import ViewModule
 from classes.player import Player
 from classes.team import Team
 

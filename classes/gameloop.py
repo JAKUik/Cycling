@@ -9,7 +9,7 @@ class GameLoop:
         The MAIN game object
         :param output: The output module
         :param board: The game board with the way
-        :param players: All plaing players
+        :param players: The list of all plaing players
         :param teams: All teams for players
         """
         self.board = board
@@ -36,6 +36,7 @@ class GameLoop:
         """
         The loop for one game from the start to the finish
         """
+        clock = pygame.time.Clock()
         running = True
         self.refresh_board = True
         self.new_round()
@@ -52,7 +53,11 @@ class GameLoop:
                         self.output.scroll_game_board(50)
                         self.refresh_board = True
                 if event.type == pygame.KEYDOWN:
-                    pass
+                    if event.key in [pygame.K_1, pygame.K_2, pygame.K_3, pygame.K_4, pygame.K_5, pygame.K_6,
+                                     pygame.K_7, pygame.K_8, pygame.K_9]:
+                        index = event.key - pygame.K_1
+                        # if index < len():
+                        #     pass
                     # print(event.type)
                     # if event.key == pygame.K_PAGEUP:
                     #     self.output.scroll_game_board(-400)
@@ -63,12 +68,12 @@ class GameLoop:
             keys = pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
                 running = False
-            elif keys[pygame.K_UP] or keys[pygame.K_w]:
-                self.output.scroll_game_board(-CLOCK_TICK / 2)
-                self.refresh_board = True
-            elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
-                self.output.scroll_game_board(CLOCK_TICK / 2)
-                self.refresh_board = True
+            # elif keys[pygame.K_UP] or keys[pygame.K_w]:
+            #     self.output.scroll_game_board(-CLOCK_TICK / 2)
+            #     self.refresh_board = True
+            # elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
+            #     self.output.scroll_game_board(CLOCK_TICK / 2)
+            #     self.refresh_board = True
             elif keys[pygame.K_PAGEUP]:
                 self.output.scroll_game_board(-400)
                 self.refresh_board = True
@@ -85,8 +90,8 @@ class GameLoop:
                 self.refresh_board = False
 
             pygame.display.update()
-
-            self.output.clock.tick(CLOCK_TICK)
+# FIXME
+            clock.tick(CLOCK_TICK)
 
     # TODO - Toto je asi špatně v logice
     def player_move(self):
