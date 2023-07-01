@@ -1,6 +1,7 @@
 import pygame
 from classes.JK_library import *
-from classes.container import Container
+from view_modules.container import Container
+from view_modules.infopanel import InfoPanel
 
 
 class ViewBoard:
@@ -25,9 +26,8 @@ class ViewBoard:
                                           * self.game_board.rows * 0.75 + 10, self.screen)
         self.board_contaniner.surface.fill(Colors.DARK_GREEN)
 
-        self.info_panel = Container(self.board_contaniner.width, 0, self.window_width - self.board_contaniner.width,
-                                    self.window_height, self.screen)
-        self.info_panel.surface.fill(Colors.YELLOW)
+        self.info_container = InfoPanel(self.board_contaniner.width, 0, self.window_width - self.board_contaniner.width,
+                                        self.window_height, self.screen, Colors.YELLOW)
 
     def draw_game_board(self):
         # Iterate over the game board and draw the fields
@@ -41,7 +41,7 @@ class ViewBoard:
         pygame.display.flip()
         self.calculate_x_for_row(10)
         self.draw_container(self.board_contaniner)
-        self.draw_container(self.info_panel)
+        self.draw_container(self.info_container.info_panel)
 
     def draw_field(self, field, x=None, y=None, width=None, height=None):
         """

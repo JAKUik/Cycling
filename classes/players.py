@@ -1,7 +1,9 @@
 import pygame
 import random
 
+from view_modules.drawable import *
 from classes.dice import Dice
+from classes.JK_library import *
 
 KEY_MAIN_DICE = pygame.K_m
 KEY_BREAK_DICE = 'B'
@@ -23,6 +25,14 @@ class Players:
         self.break_dice = Dice('1' * 40 + '2' * 40 + '3' * 40)
         # Temp variables
         self.accessible_fields = None
+
+    def update_info_panel_items(self):
+        if self._player.main_dice:
+            self.output.info_container.add_new_item\
+                ("main_dice", DrawText(self.output.info_container.info_panel, (10, 30), f"Chose MAIN dice: (M)", 30,
+                                       Colors.BLACK))
+        else:
+            self.output.info_container.remove_item("main_dice")
 
     def player_move(self, event_key):
         if self.accessible_fields is None:

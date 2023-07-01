@@ -6,8 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="6d8c7873-3122-49a7-9fcd-699d9efedb09" name="Changes" comment="I go back.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/container.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/gameloop.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/gameloop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/mainmenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/mainmenu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/players.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view_modules/infopanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/view_modules/infopanel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view_modules/viewboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/view_modules/viewboard.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +44,7 @@
     <option name="selectedUrlAndAccountId">
       <UrlAndAccount>
         <option name="accountId" value="80aa0747-bf61-49dd-8c4b-3818f258573d" />
-        <option name="url" value="https://github.com/JAKUik/CyclingGame.git" />
+        <option name="url" value="git@github.com:JAKUik/Cycling.git" />
       </UrlAndAccount>
     </option>
   </component>
@@ -51,14 +54,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;PygameContainer01&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/MEGA/!__Python/Cycling&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.toDoOptions&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "PygameContainer01",
+    "last_opened_file_path": "D:/MEGA/!_Python/!Projects/Superiority/Superiority.py",
+    "settings.editor.selected.configurable": "preferences.toDoOptions"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\MEGA\!__Python\Cycling\view_modules" />

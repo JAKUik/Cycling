@@ -1,5 +1,7 @@
 import pygame
 from classes.players import Players
+from view_modules.drawable import *
+from classes.JK_library import *
 CLOCK_TICK = 30
 
 
@@ -34,6 +36,8 @@ class GameLoop:
         clock = pygame.time.Clock()
         running = True
         self.refresh = True
+
+        # self.output.info.add_new_item("round", print_round)
 
         while running:
             if self.players.players_pointer is None:
@@ -81,6 +85,8 @@ class GameLoop:
 
             # Draw the screen after the self.refresh
             if self.refresh:
+                self.players.update_info_panel_items()
+                self.output.info_container.draw_info_panel()
                 self.output.draw_game_board()
                 self.refresh = False
 
@@ -91,5 +97,8 @@ class GameLoop:
         self.round += 1
         self.players.new_round_reset_all_players()
         self.refresh = True
+        self.output.info_container.add_new_item("round", DrawText(self.output.info_container.info_panel,
+                                                                  (10, 10), f"ROUND: {self.round}", 30, Colors.BLACK))
+
 
 

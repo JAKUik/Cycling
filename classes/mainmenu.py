@@ -30,7 +30,6 @@ class MainMenu:
         self.load_players()
         self.output = ViewBoard(screen_widht, screen_height, self.board)
         self.game = GameLoop(self.output, self.board, self.players, self.teams)
-
         self.game.main_loop()
 
         # self.save_board("save_board_")
