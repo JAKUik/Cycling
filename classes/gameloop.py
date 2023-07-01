@@ -83,10 +83,10 @@ class GameLoop:
                 self.output.scroll_game_board(400)
                 self.refresh = True
 
+            self.players.update_info_panel_items()
+            self.output.draw_info_panel()
             # Draw the screen after the self.refresh
             if self.refresh:
-                self.players.update_info_panel_items()
-                self.output.info_container.draw_info_panel()
                 self.output.draw_game_board()
                 self.refresh = False
 
@@ -99,6 +99,7 @@ class GameLoop:
         self.refresh = True
         self.output.info_container.add_new_item("round", DrawText(self.output.info_container.info_panel,
                                                                   (10, 10), f"ROUND: {self.round}", 30, Colors.BLACK))
+
 
 
 

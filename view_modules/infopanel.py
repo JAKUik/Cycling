@@ -11,10 +11,9 @@ class InfoPanel:
         self.screen = screen
         self.background = background
         self.info_panel = Container(self.x, self.y, self.width, self.height, self.screen)
-        self.info_panel.surface.fill(Colors.YELLOW)
         self.items = {}
 
-    def draw_info_panel(self):
+    def prepare_info_panel(self):
         # self.info_panel.surface.fill(Colors.YELLOW)
         for item in self.items.values():
             item.draw()
@@ -25,4 +24,5 @@ class InfoPanel:
         self.items[item_id] = item
 
     def remove_item(self, item_id):
-        del self.items[item_id]
+        if item_id in self.items:
+            del self.items[item_id]

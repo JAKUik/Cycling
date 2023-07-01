@@ -41,6 +41,9 @@ class ViewBoard:
         pygame.display.flip()
         self.calculate_x_for_row(10)
         self.draw_container(self.board_contaniner)
+
+    def draw_info_panel(self):
+        self.info_container.prepare_info_panel()
         self.draw_container(self.info_container.info_panel)
 
     def draw_field(self, field, x=None, y=None, width=None, height=None):
