@@ -1,4 +1,5 @@
 import pygame
+import random
 
 from classes.dice import Dice
 
@@ -9,7 +10,7 @@ KEY_SPRINT_DICE = 'S'
 
 class Players:
     def __init__(self, players, teams, board, output):
-        self.players = players  # CHECK - Změnit na self.players_list
+        self.players = players
         self.teams = teams
         self.board = board
         self.output = output
@@ -22,19 +23,6 @@ class Players:
         self.break_dice = Dice('1' * 40 + '2' * 40 + '3' * 40)
         # Temp variables
         self.accessible_fields = None
-
-    # TODO - Toto je asi špatně v logice
-
-    def check_new_player(self):
-        if self._player is None:
-            # New player for move
-            self._player = self.players[self.players_pointer]
-            if self.last_group != self._player.group:
-                # TODO - Select Dice (main or break)
-                # self._player.roll = self.main_dice.dice_roll()
-                # atp = self.board.get_accessible_target_positions(self._player.row, self._player.col, self._player.roll)
-                # print(self._player.roll, atp)
-                pass
 
     def player_move(self, event_key):
         if self.accessible_fields is None:
@@ -58,6 +46,7 @@ class Players:
                 # TODO - Sprintuje se, sám nebo všichni
                 # return True  #
                 pass
+            # Next player
             self.players_pointer += 1
             if self.players_pointer < len(self.players):
                 self._player = self.players[self.players_pointer]
@@ -175,10 +164,10 @@ class Players:
         """
         Line-up all players at the start
         """
-        # random.shuffle(self.players)  ## TEMP - odstranit komentář
+        random.shuffle(self.players)
         p = 0
         for i in range(self.board.rows):
-            # TODO - TEMP vytvoření skupin
+            # TEMP vytvoření skupin
             if i % 2 == 1:
                 continue
             # ####################

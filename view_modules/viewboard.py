@@ -38,12 +38,8 @@ class ViewBoard:
                 x = self.hexagon_width * col_idx + (self.hexagon_width // 2) * (row_idx % 2)
                 y = self.hexagon_height * (len(self.game_board.board) - row_idx - 1) * 0.75
                 self.draw_field(field, x, y, self.hexagon_width, self.hexagon_height)
-                #
-                # Maybe here I can check the integrity controls (etc. only one possition on player ...)
-                #
         pygame.display.flip()
         self.calculate_x_for_row(10)
-        # self.board_contaniner.draw(self.screen)
         self.draw_container(self.board_contaniner)
         self.draw_container(self.info_panel)
 
@@ -88,11 +84,6 @@ class ViewBoard:
             # text = self.font.render(f"{field.player.monogram}", True, Colors.BLACK)
             text_rect = text.get_rect(center=(field.x + field.width / 2, field.y + field.height / 2))
             self.board_contaniner.surface.blit(text, text_rect)
-        # elif  TODO Vykreslení pozice na kterou může hráč vstoupit
-            
-        # Render Player
-        #
-        #
 
     def draw_one_hexagon(self, x, y, width, height, fill_color, border_color):
         pygame.draw.polygon(self.board_contaniner.surface, fill_color, [

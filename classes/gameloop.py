@@ -18,7 +18,7 @@ class GameLoop:
         # self.players_pointer = None
         self.teams = teams
         self.output = output
-        self.refresh_board = True
+        self.refresh = True
         # For each round
         self.round = 0
         # Fro each player
@@ -33,14 +33,11 @@ class GameLoop:
         """
         clock = pygame.time.Clock()
         running = True
-        self.refresh_board = True
+        self.refresh = True
 
         while running:
             if self.players.players_pointer is None:
                 self.new_round()
-
-            # # CHECK Tady nebo jinde ?
-            # self.players.check_new_player()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -48,46 +45,44 @@ class GameLoop:
                 elif event.type == pygame.MOUSEWHEEL:
                     if event.y > 0:
                         self.output.scroll_game_board(-50)
-                        self.refresh_board = True
+                        self.refresh = True
                     elif event.y < 0:
                         self.output.scroll_game_board(50)
-                        self.refresh_board = True
+                        self.refresh = True
                 if event.type == pygame.KEYDOWN:
                     # Testing all possible actions with dice
-                    self.refresh_board = self.players.dice_roll(event.key) or self.refresh_board
-                    self.refresh_board = self.players.player_move(event.key) or self.refresh_board
+                    self.refresh = self.players.dice_roll(event.key) or self.refresh
+                    self.refresh = self.players.player_move(event.key) or self.refresh
 
                     # if index < len():
                     #     pass
                     # print(event.type)
                     # if event.key == pygame.K_PAGEUP:
                     #     self.output.scroll_game_board(-400)
-                    #     self.refresh_board = True
+                    #     self.refresh = True
                     # elif event.key == pygame.K_PAGEDOWN:
                     #     self.output.scroll_game_board(400)
-                    #     self.refresh_board = True
+                    #     self.refresh = True
             keys = pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
                 running = False
             # elif keys[pygame.K_UP] or keys[pygame.K_w]:
             #     self.output.scroll_game_board(-CLOCK_TICK / 2)
-            #     self.refresh_board = True
+            #     self.refresh = True
             # elif keys[pygame.K_DOWN] or keys[pygame.K_s]:
             #     self.output.scroll_game_board(CLOCK_TICK / 2)
-            #     self.refresh_board = True
+            #     self.refresh = True
             elif keys[pygame.K_PAGEUP]:
                 self.output.scroll_game_board(-400)
-                self.refresh_board = True
+                self.refresh = True
             elif keys[pygame.K_PAGEDOWN]:
                 self.output.scroll_game_board(400)
-                self.refresh_board = True
+                self.refresh = True
 
-
-
-            # Draw the screen after the self.refresh_board
-            if self.refresh_board:
+            # Draw the screen after the self.refresh
+            if self.refresh:
                 self.output.draw_game_board()
-                self.refresh_board = False
+                self.refresh = False
 
             pygame.display.update()
             clock.tick(CLOCK_TICK)
@@ -95,6 +90,6 @@ class GameLoop:
     def new_round(self):
         self.round += 1
         self.players.new_round_reset_all_players()
-        self.refresh_board = True
+        self.refresh = True
 
 
