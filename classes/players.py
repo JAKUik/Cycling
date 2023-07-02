@@ -6,8 +6,8 @@ from classes.dice import Dice
 from classes.JK_library import *
 
 KEY_MAIN_DICE = pygame.K_m
-KEY_BREAK_DICE = 'B'
-KEY_SPRINT_DICE = 'S'
+KEY_BREAK_DICE = pygame.K_b
+KEY_SPRINT_DICE = pygame.K_s
 
 
 class Players:
@@ -17,7 +17,7 @@ class Players:
         self.teams = teams
         self.board = board
         self.output = output
-        self.players_pointer = None
+        self._players_pointer = None
         self.last_group = 0
         self._player = None
         # Set Dices odds
@@ -26,15 +26,21 @@ class Players:
         self.break_dice = Dice('1' * 40 + '2' * 40 + '3' * 40)
         # Temp variables
         self.accessible_fields = None
+        self.roll = 0
+        self.escape = False
 
     def update_info_panel_items(self):
+        # f = self.board.field(self._player.row, self._player.col)
+        # if f.height is not None:
+        #     self.output.border_hexagon(f.x, f.y, f.width, f.height, Colors.BLACK, 10)
+        #     self.output.draw_game_board()
+
         if self._player.main_dice:
             self.output.info_container.add_new_item\
                 ("main_dice", DrawText(self.output.info_container.info_panel, (10, 60), f"Chose MAIN dice: (M)", 25,
                                        Colors.BLACK))
         else:
             self.output.info_container.info_panel.surface.fill(Colors.YELLOW)
-# FIXME nefunguje pro první obnovení
             self.output.info_container.remove_item("main_dice")
         if self._player.break_dice:
             self.output.info_container.add_new_item(
@@ -53,8 +59,7 @@ class Players:
         if self._player.take_roll is not None:
             self.output.info_container.add_new_item(
                 "assume", DrawText(self.output.info_container.info_panel, (10, 150),
-                                   f"Assume roll:  {self._player.take_roll}", 25, Colors.BLACK))
-
+                                   f"Roll / Assume: {self.roll} / {self._player.take_roll}", 25, Colors.BLACK))
 
         self.output.info_container.add_new_item(
             "rider", DrawText(self.output.info_container.info_panel, (10, 200), "Rider:", 30, Colors.BLACK))
@@ -63,9 +68,8 @@ class Players:
                                    f"Name:   {self._player.name}\n"
                                    f"Team:   {self._player.team.name}", 25, Colors.BLACK))
 
-
-
     def player_move(self, event_key):
+
         if self.accessible_fields is None:
             return False  # Player isn't ready for move
 
@@ -84,73 +88,113 @@ class Players:
                 .set_player(self._player)
             self.clear_accessible_fields_from_board()
             self.accessible_fields = []
-            if hasattr(self._player, 'roll'):  # FIXME - no takhle asi ne, player standardně roll nemá
-                if self._player.roll == 2:
-                    # TODO - Sprintuje se, sám nebo všichni
-                    # return True  #
-                    pass
+            if self.roll == 2 and self._player.sprint_dice:
+                self.escape = True  # The player has moved himself
+                return True
             self.next_player(True)
             return True
-
-    def next_player(self, can_player_takes_roll):
-        last_group = self._player.group
-        self.players_pointer += 1
-        if self.players_pointer >= len(self.players):
-            self.players_pointer = None
-            return True
-        self._player = self.players[self.players_pointer]
-        if last_group == self._player.group and can_player_takes_roll:  # CHECK - Zřejmě to jde udělat i bez can_player...
-            self.create_accessible_fields(self._player.row, self._player.col, self._player.take_roll)
-
-
-        return True
 
     def dice_roll(self, event_key):
         """
         Testing a possible dice actions and doing it
         :param event_key: Pressed key event
         """
-        def after_dice_roll():
-        # This is inside function
+        def after_dice_roll(dice):  # This is inside function
             self._player.main_dice = False
             self._player.break_dice = False
+            self._player.sprint_dice = self.roll == 2 and dice == "MAIN" \
+                and self.isnt_alone(self._player.row, self._player.col, self._players)
             self._player.take_roll = None
-            m = self._player.roll if self._player.roll <4 else self._player.roll - 1
+            self.set_groups()
+            # Set break_dice for next two players
+            if dice == "BREAK":
+                g = self._player.group
+                for i in range(1, 3):
+                    if self._players_pointer + i >= len(self._players) or g != self._players[i].group:
+                        break
+                    else:
+                        self._players[i].main_dice = False
+            if dice != "SPRINT":
+                m = self.roll if self.roll < 4 else self.roll - 1
+            else:
+                if self.escape:  # Samostatný únik
+                    print(f"Sprint únik. SPRINT dice: {self.roll}")
+                    m = self.roll
+                    self.roll = None
+                else:
+                    print(f"Sprint skupina.SPRINT dice: {self.roll} + 2")
+                    self.roll += 2  # Group take 2 + sprint.dice
+                    m = self.roll
+                # když SPRINT sám tak self.roll = None
+                # jinak self.roll = 2 + self.roll
             if self.accessible_fields:
                 self.clear_accessible_fields_from_board()
-            self.create_accessible_fields(self._player.row, self._player.col, m)
-            # self.accessible_fields = self.board.get_accessible_target_positions(self._player.row, self._player.col, m)
-            # if len(self.accessible_fields) == 0:  # One more time, but slower
-            #     self.accessible_fields = self.board.get_accessible_target_positions\
-            #         (self._player.row, self._player.col, m - 1)
-            #     if len(self.accessible_fields) == 0:  # The cyclist fell
-            #         pass # TODO *** next cyclist ***
-            # self.set_accessible_fields_to_board()
+            self.create_accessible_fields(self._player.row, self._player.col, m, dice)
             # Fills the roll for the rest of the group
             g = self._player.group
-            for i in range(self.players_pointer, len(self.players)):
-                if g == self.players[i].group:
-                    self.players[i].take_roll = self._player.roll
+            for i in range(self._players_pointer, len(self._players)):
+                if g == self._players[i].group:
+                    self._players[i].take_roll = self.roll
                 else:
                     break
             # self.output.draw_game_board()
 
         # ... dice_roll method continue
         if event_key == KEY_MAIN_DICE and self._player.main_dice:
-            self._player.roll = self.main_dice.dice_roll()
-            after_dice_roll()
+            print("Hlavní kostka")
+            self.roll = self.main_dice.dice_roll()
+            after_dice_roll("MAIN")
             return True
-        elif event_key == KEY_BREAK_DICE and self._player.break_dice:
-            self._player.roll = self.break_dice.dice_roll()
-            after_dice_roll()
+        if event_key == KEY_BREAK_DICE and self._player.break_dice:
+            print("Brzdící kostka")
+            self.roll = self.break_dice.dice_roll()
+            after_dice_roll("BREAK")
+            return True
+        if event_key == KEY_SPRINT_DICE and self._player.sprint_dice:
+            print("Sprint kostka")
+            self.roll = self.sprint_dice.dice_roll()
+            after_dice_roll("SPRINT")
             return True
 
-    def create_accessible_fields(self, r, c, m):
+    def is_next_player(self):
+        return self._players_pointer + 1 < len(self._players)
+
+    def next_player(self, can_player_takes_roll):
+        self.escape = False
+        last_group = self._player.group
+        self._player.actual = False
+        self._players.pop(0)
+        if self._players_pointer >= len(self._players):
+            self._players_pointer = None
+            return True
+        self._player = self._players[self._players_pointer]
+        self._player.actual = True
+        if last_group == self._player.group and can_player_takes_roll:  # CHECK - Zřejmě to jde udělat i bez can_player...
+            self.create_accessible_fields(self._player.row, self._player.col, self._player.take_roll)
+        return True
+
+    def isnt_alone(self, row, col, _players):
+        """
+        :param row:
+        :param col:
+        :param _players: Remaining player on this round
+        :return: True - If someone on surrounding positions
+        """
+        sp = self.board.surrounding_positions(row, col)
+        for r, c in sp:
+            for p in _players:
+                if p.row == r and p.col == c:
+                    return True
+        return False
+
+    def create_accessible_fields(self, r, c, m, dice="MAIN"):
         self.accessible_fields = self.board.get_accessible_target_positions(r, c, m)
-        if len(self.accessible_fields) == 0:  # One more time, but slower
-            self.accessible_fields = self.board.get_accessible_target_positions(r, c, m - 1)
-            if len(self.accessible_fields) == 0:  # The cyclist fell
-                pass  # TODO *** next cyclist ***
+        # if len(self.accessible_fields) == 0:  # One more time, but slower
+        if dice != "BREAK":
+            self.accessible_fields += self.board.get_accessible_target_positions(r, c, m - 1)
+        if len(self.accessible_fields) == 0 and not self._player.break_dice:  # The cyclist fell
+            print("JEZDEC UPADL")
+            self.next_player(True)
         self.set_accessible_fields_to_board()
 
     def set_accessible_fields_to_board(self):
@@ -164,24 +208,26 @@ class Players:
             self.board.field(r, c).set_accessible_for_player_move(None)
 
     def new_round_reset_all_players(self):
-        for player in self.players:
+        self._players = self.players.copy()
+        for player in self._players:
             player.new_round_reset()
         self.assign_players_order()
         self.set_groups()
         # Sorted all players by GROUP, ROW, COLUMN (front free fields = 2 or 1)
-        self.players = sorted(self.players, key=lambda x: (x.group, -x.row, -x.front_enable, x.col))
-        self.players_pointer = 0
-        self._player = self.players[self.players_pointer]
+        self._players = sorted(self._players, key=lambda x: (x.group, -x.row, -x.front_enable, x.col))
+        self._players_pointer = 0
+        self._player = self._players[self._players_pointer]
+        self._player.actual = True
 
     def assign_players_order(self):
         """
         Sorts the list of players for the new round
         """
-        for player in self.players:
+        for player in self._players:
             player.front_enable = self.board.count_front_enable(player.row, player.col)
-        self.players = sorted(self.players, key=lambda x: (-x.row, -x.front_enable, x.col))
+        self._players = sorted(self._players, key=lambda x: (-x.row, -x.front_enable, x.col))
         order = 1
-        for player in self.players:
+        for player in self._players:
             player.order = order
             order += 1
 
@@ -189,8 +235,10 @@ class Players:
         """
         Sets all groups for all players to one round
         """
+        for player in self._players:
+            player.group = None
         group_number = 1
-        for player in self.players:
+        for player in self._players:
             if player.group is None:
                 self.search_group_members(player, group_number)
                 group_number += 1
@@ -210,7 +258,7 @@ class Players:
         # Nefunční AI
         # NEFUNKČNÍ AI
         # group_number = 1
-        # for player in self.players:
+        # for player in self._players:
         #     if player.group is None:
         #         player.group = group_number
         #     if player.row % 2 == 0:
@@ -218,7 +266,7 @@ class Players:
         #     else:
         #         adjacent_positions = [(player.row + 1, player.col + 1), (player.row + 1, player.col)]
         #     for row, col in adjacent_positions:
-        #         for p in self.players:
+        #         for p in self._players:
         #             if p.row == row and p.col == col and p.group is None:
         #                 p.group = player.group
         #     group_number += 1
@@ -231,8 +279,8 @@ class Players:
         p = 0
         for i in range(self.board.rows):
             # TEMP vytvoření skupin
-            if i % 2 == 1:
-                continue
+            # if i % 2 == 1:
+            #     continue
             # ####################
             for j in range(self.board.columns):
                 if self.board.field(i, j).enable:

@@ -174,4 +174,10 @@ class Board:
                 accessible_target_positions.extend(dfs(r, c, steps - 1))
             return accessible_target_positions
 
-        return list(set(dfs(row, col, steps)))
+        li = list(set(dfs(row, col, steps)))
+        for i in range(len(li)):
+            r, c = li[i]
+            if r == row and c == col:
+                li.pop(i)
+        return li
+

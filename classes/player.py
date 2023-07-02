@@ -12,6 +12,7 @@ class Player:
         self.main_dice = None
         self.sprint_dice = None
         self.break_dice = None
+        self.actual = False
         # self.fields_for_move = []
 
         # self.board = board

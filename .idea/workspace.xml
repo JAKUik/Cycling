@@ -5,11 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6d8c7873-3122-49a7-9fcd-699d9efedb09" name="Changes" comment="I go back.">
+      <change afterPath="$PROJECT_DIR$/pokusy.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AI_out.py" beforeDir="false" afterPath="$PROJECT_DIR$/AI_out.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/JK_library.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/JK_library.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/board.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/dice.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/dice.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/gameloop.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/gameloop.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/mainmenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/mainmenu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classes/player.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/player.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/classes/players.py" beforeDir="false" afterPath="$PROJECT_DIR$/classes/players.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view_modules/drawable.py" beforeDir="false" afterPath="$PROJECT_DIR$/view_modules/drawable.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/view_modules/infopanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/view_modules/infopanel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view_modules/viewboard.py" beforeDir="false" afterPath="$PROJECT_DIR$/view_modules/viewboard.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,14 +58,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "PygameContainer01",
-    "last_opened_file_path": "D:/MEGA/!_Python/!Projects/Superiority/Superiority.py",
-    "settings.editor.selected.configurable": "preferences.toDoOptions"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;PygameContainer01&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/MEGA/!_Python/!Projects/Superiority/Superiority.py&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.toDoOptions&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\MEGA\!__Python\Cycling\view_modules" />
@@ -394,9 +399,9 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/view_modules/infopanel.py</url>
-          <line>20</line>
-          <option name="timeStamp" value="20" />
+          <url>file://$PROJECT_DIR$/classes/players.py</url>
+          <line>119</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>

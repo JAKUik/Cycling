@@ -40,7 +40,7 @@ class GameLoop:
         # self.output.info.add_new_item("round", print_round)
 
         while running:
-            if self.players.players_pointer is None:
+            if self.players._players_pointer is None:
                 self.new_round()
 
             for event in pygame.event.get():

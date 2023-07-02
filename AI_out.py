@@ -1,3 +1,34 @@
+# Hexagon s vodorovnou horní a spodní stranou
+import math
+import pygame
+
+class Hexagon:
+    def __init__(self, center, size, color, line_width=1, background_color=None):
+        self.center = center
+        self.size = size
+        self.color = color
+        self.line_width = line_width
+        self.background_color = background_color
+
+    def draw(self, surface):
+        points = []
+        for i in range(6):
+            angle = math.radians(60 * i + 30)
+            x = self.center[0] + self.size * math.cos(angle)
+            y = self.center[1] + self.size * math.sin(angle)
+            points.append((x, y))
+        if self.background_color:
+            pygame.draw.polygon(surface, self.background_color, points)
+        pygame.draw.polygon(surface, self.color, points, self.line_width)
+
+# Example usage
+pygame.init()
+screen = pygame.display.set_mode((400, 300))
+hexagon = Hexagon((200, 150), 50, (255, 0, 0), 3, (0, 255, 0))
+hexagon.draw(screen)
+pygame.display.flip()
+
+
 # Tento algoritmus prochází seznam hráčů a pro každého hráče zjistí jeho sousední pozice na základě pravidel pro sudé
 # a liché řádky. Poté prochází seznam hráčů znovu a hledá hráče na těchto sousedních pozicích. Pokud jsou nalezeni
 # sousední hráči, jsou přidáni do skupiny spolu s aktuálním hráčem. Nakonec jsou všechny skupiny vráceny jako výsledek.

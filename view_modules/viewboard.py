@@ -87,8 +87,14 @@ class ViewBoard:
             # text = self.font.render(f"{field.player.monogram}", True, Colors.BLACK)
             text_rect = text.get_rect(center=(field.x + field.width / 2, field.y + field.height / 2))
             self.board_contaniner.surface.blit(text, text_rect)
+        if field.player is not None and field.player.actual:
+            self.border_hexagon(field.x, field.y, field.width, field.height, Colors.WHITE, 5)
 
     def draw_one_hexagon(self, x, y, width, height, fill_color, border_color):
+        self.fill_hexagon(x, y, width, height, fill_color)
+        self.border_hexagon(x, y, width, height, border_color)
+
+    def fill_hexagon(self, x, y, width, height, fill_color):
         pygame.draw.polygon(self.board_contaniner.surface, fill_color, [
             (x, y + height // 4),
             (x + width // 2, y),
@@ -98,7 +104,7 @@ class ViewBoard:
             (x, y + 3 * height // 4)
         ])
 
-        # Draw the black outline of the hexagon
+    def border_hexagon(self, x, y, width, height, border_color, thickness=1):
         pygame.draw.polygon(self.board_contaniner.surface, border_color, [
             (x, y + height // 4),
             (x + width // 2, y),
@@ -106,7 +112,7 @@ class ViewBoard:
             (x + width, y + 3 * height // 4),
             (x + width // 2, y + height),
             (x, y + 3 * height // 4)
-        ], 1)  # The third argument (1) specifies the line thickness
+        ], thickness)  # The third argument (1) specifies the line thickness
 
     def scroll_game_board(self, dy):
         self.board_contaniner.scroll(0, dy)

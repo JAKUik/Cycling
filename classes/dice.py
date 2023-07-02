@@ -8,6 +8,7 @@ class Dice:
 
     def dice_roll(self):
         self.roll = int(random.choice(self.odds))
+        print(self.roll)
         return self.roll
 
 

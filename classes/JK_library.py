@@ -1,7 +1,6 @@
-
-#############
-# CONSTANTS #
-#############
+##########
+# COLORs #
+##########
 class Colors:
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
@@ -23,33 +22,4 @@ class Colors:
     ORANGE = (255, 165, 0)
     PINK = (255, 104, 180)
     DARK_GREEN = (0, 100, 0)
-
-
-# ******************
-# DEFINICE CLASSES #
-# ******************
-# class Colors:
-#     """
-#     Definice základních barev do objektu
-#     color = Colors()
-#     """
-#     white = (255, 255, 255)
-#     black = (0, 0, 0)
-#     dark_gray = (30, 30, 30)
-#     red = (255, 0, 0)
-#     green = (0, 255, 0)
-#     blue = (0, 0, 255)
-#     yellow = (255, 255, 0)
-#     cyan = (0, 255, 255)
-#     magenta = (255, 0, 255)
-#     silver = (192, 192, 192)
-#     gray = (128, 128, 128)
-#     maroon = (128, 0, 0)
-#     olive = (128, 128, 0)
-#     purple = (128, 0, 128)
-#     teal = (0, 128, 128)
-#     navy = (0, 0, 128)
-#     orange = (255, 165, 0)
-#     pink = (255, 104, 180)
-#
 
