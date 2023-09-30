@@ -1,0 +1,13 @@
+Ceníme práci na projektu! 🏆 Prohlédli jsme si kód a máme k němu následující poznámky:
+
+1. Pojmenování identifikátorů - Pojmenování identifikátorů je dobré
+2. Dodržení principů SRP a SoC - Principy SRP a SoC dodrženy
+3. Vhodný výběr datových typů - ok
+4. Formátování kódu - Formátování kódu je dobré
+5. Duplicitní kód a nekonečné cykly - Duplicitní kód a nekonečné cykly jsem nenašel
+6. Validace vstupních dat - Nejde zadat jiné hodnoty, než daný moment vyžaduje. Tedy validace je dobrá
+7. Logičnost a složitost - Logičnost a složitost je dobrá
+8. Komentáře - Komentářů je méně, ale když se objeví tak jsou popisné
+9. Celkové hodnocení - Aplikace je velmi zajímavá. Přidej prosím více komentářů, protože při takovéhle appce se můžeš rychle v kódu ztratit. Dobrá práce!
+
+Doporučujeme případné výtky v kódu opravit, abyste jej mohli pak prezentovat budoucímu zaměstnavateli v co nejlepší kvalitě. Pokud byste potřebovali s čímkoli pomoci, naplánujte si s námi konzultaci, rádi vám poradíme!
